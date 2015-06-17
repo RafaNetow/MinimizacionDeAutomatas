@@ -12,4 +12,9 @@ public class State {
         this.nombre = nombre;
     }
 
+
+    public boolean isAccept(Automaton Auto) {
+        boolean accept;
+        return accept;
+    }
 }
