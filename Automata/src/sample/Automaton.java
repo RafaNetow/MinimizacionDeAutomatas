@@ -15,14 +15,32 @@ public class Automaton {
     State Initial;
     List<State> AllState;
     List<State>  StateFinals;
-   List<Transition> Transitions;
-    private  List<Character>Afabet;
+    List<Transition> Transitions;
+    List<Character>Alfabet;
+    public List<State> getAllState() {
+        return AllState;
+    }
+
+    public void setAllState(List<State> allState) {
+        AllState = allState;
+    }
+
+
+    public List<Character> getAlfabet() {
+        return Alfabet;
+    }
+
+    public void setAlfabet(List<Character> alfabet) {
+        Alfabet = alfabet;
+    }
+
+
     public Automaton(){
         Initial = new State();
         StateFinals = new ArrayList();
         AllState = new ArrayList<>();
         Transitions = new ArrayList<Transition>();
-        Afabet= new ArrayList<>();
+        Alfabet= new ArrayList<>();
 
     }
     public List<Transition> getTransitions() {

@@ -13,6 +13,18 @@ public class DFA extends Automaton {
         super();
     }
 
+
+
+
+    public void addState(State newState){
+       AllState.add(newState);
+
+    }
+
+
+
+
+
     public State ShearchTransition(String name){
         for (Transition s : Transitions) {
             if(s.Origin.equals(name))
@@ -22,12 +34,12 @@ public class DFA extends Automaton {
     }
 
 
-    public State SearchDestiny(char Symbol, State OriginState) {
+    public State SearchDestiny( State OriginState,char Symbol) {
         for (Transition s : Transitions) {
             if (s.Symbol.equals(Symbol) && s.Origin.equals(OriginState)) {
                 State Destiny = ShearchTransition(s.Destination.nombre);
                 return Destiny;
-            }
+            }                         
 
 
         }
@@ -40,28 +52,7 @@ public class DFA extends Automaton {
 
     }
 
-    public Automaton MinimitationDFA(){
-        List<State> StateAceptados = StateFinals;
-        List<State> StateNoAceptados = GetStateNoFinales();
-        List<Character> Alfabet = GetAlfabet();
-        List<String> NewStates= new ArrayList<>();
-
-
-    return new Automaton();
-    }
-
-    public List<State> GetStateNoFinales(){
-      List<State> StateNoAceptados = new ArrayList<>();
-        for(State  a: AllState){
-         for(State f: StateFinals) {
-         if(a.nombre!= f.nombre)
-             StateNoAceptados.add(a);
-         }
-
-
-      }
-        return  StateNoAceptados;
-    }
+    
 
 
 }
