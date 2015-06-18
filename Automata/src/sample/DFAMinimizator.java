@@ -44,7 +44,7 @@ public class DFAMinimizator  {
         Set<State> nonFinalStates = new LinkedHashSet<State>();
 
         for(State state : automaton.AllState) {
-            Set<State> set = state.isAccept() ? finalStates : nonFinalStates;
+            Set<State> set = state.isAccept(automaton, state) ? finalStates : nonFinalStates;
 
             set.add(state);
             stateSetMapping.put(state, set);
@@ -172,9 +172,7 @@ public class DFAMinimizator  {
                 minimizedStates.addLast(minimizedState);
             }
 
-            if(state.isAccept()) {
-                minimizedState.setAccept(true);
-            }
+
         }
 
         boolean first = true;

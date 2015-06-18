@@ -34,6 +34,8 @@ public class DFA extends Automaton {
     }
 
 
+
+
     public State SearchDestiny( State OriginState,char Symbol) {
         for (Transition s : Transitions) {
             if (s.Symbol.equals(Symbol) && s.Origin.equals(OriginState)) {
@@ -44,6 +46,15 @@ public class DFA extends Automaton {
 
         }
         return null;
+    }
+
+
+    public boolean IfStateIsAccept(State state){
+
+      return  true;
+
+
+
     }
 
     public boolean VerificationOfDFA(){

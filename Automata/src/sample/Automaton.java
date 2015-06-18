@@ -61,10 +61,12 @@ public class Automaton {
     }
 
     public void setFinal(List<State> aFinal) {
+
         StateFinals = aFinal;
     }
 
     public void setInitial(State initial) {
+
         Initial = initial;
     }
 

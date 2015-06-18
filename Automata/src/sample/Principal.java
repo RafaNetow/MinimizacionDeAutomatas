@@ -160,8 +160,8 @@ public class Principal extends JFrame {
 
                     if (anObject.nombre.equals(FinalState)) {
 
-                        AutomataDFA.setFinal(anObject);
-                        System.out.println("Estado final Agregado" + AutomataDFA.Final.nombre);
+                       // AutomataDFA.setFinal(anObject);
+
                         return;
                     }
 
@@ -183,15 +183,15 @@ public class Principal extends JFrame {
 
                 State current = AutomataDFA.getInitial();
                 for (int i = 0; i <= texto.getText().length(); i++) {
-                    State Destiny = AutomataDFA.SearchDestiny(texto.getText().charAt(i), current);
+                   State Destiny = AutomataDFA.SearchDestiny( current,texto.getText().charAt(i));
                     if (Destiny != null) {
                         current = Destiny;
-
-                    } else if (current.nombre.equals(AutomataDFA.Final.nombre)) {
+                                 current.isAccept(AutomataDFA,current);
+                    } else if ( current.isAccept(AutomataDFA, current)) {
                         System.out.println("Automata Aceptado");
                         return;
                     }
-                    else if (false == current.nombre.equals(AutomataDFA.Final.nombre)) {
+                    else if ( current.isAccept(AutomataDFA,current)== false) {
                         System.out.println("No se ha Aceptatdo");
                         return;
                     }
