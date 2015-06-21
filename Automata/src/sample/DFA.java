@@ -25,13 +25,7 @@ public class DFA extends Automaton {
 
 
 
-    public State ShearchTransition(String name){
-        for (Transition s : Transitions) {
-            if(s.Origin.equals(name))
-                return s.Origin;
-        }
-        return null;
-    }
+
 
 
 
@@ -39,7 +33,7 @@ public class DFA extends Automaton {
     public State SearchDestiny( State OriginState,char Symbol) {
         for (Transition s : Transitions) {
             if (s.Symbol.equals(Symbol) && s.Origin.equals(OriginState)) {
-                State Destiny = ShearchTransition(s.Destination.nombre);
+                State Destiny = ShearchSate(s.Destination.nombre);
                 return Destiny;
             }                         
 
@@ -52,8 +46,6 @@ public class DFA extends Automaton {
     public boolean IfStateIsAccept(State state){
 
       return  true;
-
-
 
     }
 

@@ -43,6 +43,7 @@ public class Automaton {
         Alfabet= new ArrayList<>();
 
     }
+
     public List<Transition> getTransitions() {
         return Transitions;
     }
@@ -94,6 +95,20 @@ public class Automaton {
 
          return false;
      }
+    public State ShearchSate(String name){
+        for (Transition s : Transitions) {
+            if(s.Origin.equals(name))
+                return s.Origin;
+        }
+        return null;
+    }
 
+    public Transition ShearchTransitionWithSymbol(String state, char symbol){
+      for(Transition trans : Transitions) {
+      if(trans.Origin.equals(state) && trans.Symbol.equals(symbol));
+          return trans;
+      }
+        return null;
+    }
 
 }
