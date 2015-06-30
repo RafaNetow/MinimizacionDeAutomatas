@@ -7,7 +7,7 @@ public class TransitionTurin extends Transition  {
      char Move;
      char Brand;
 
-    public TransitionTurin(State Origin, State destination, Character Symbol, String Move, char brand) {
+    public TransitionTurin(State Origin, State destination, Character Symbol, char Move, char brand) {
         super(Origin,destination,Symbol);
         this.Move = Move;
         this.Brand = brand;

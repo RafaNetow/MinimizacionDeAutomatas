@@ -7,6 +7,7 @@ public class Transition {
     State Origin;
     State Destination;
     Character Symbol;
+    String Symbols;
 
     public Transition(State Origin,State destination, Character Symbol){
 
@@ -15,6 +16,12 @@ public class Transition {
         this.Symbol = Symbol;
 
 
+    }
+    public Transition(State Origin,State destination,String Symbols){
+
+        this.Origin = Origin;
+        this.Destination = destination;
+        this.Symbols = Symbols;
     }
 
 

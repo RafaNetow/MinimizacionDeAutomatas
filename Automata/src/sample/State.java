@@ -14,9 +14,9 @@ public class State {
     }
 
 
-    public State() {
-    }
+    public State(){
 
+    }
     public State(String nombre) {
         this.nombre = nombre;
     }
@@ -26,10 +26,10 @@ public class State {
 
 
         for (State State : CurrentAutomaton.StateFinals) {
-            if (State.nombre.equals(currentState))
-                return false;
+            if (State.nombre.equals(currentState.nombre))
+                return true;
 
         }
-        return true;
+        return false;
     }
 }

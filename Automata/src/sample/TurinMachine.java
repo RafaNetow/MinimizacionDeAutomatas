@@ -10,48 +10,34 @@ public class TurinMachine extends Automaton {
     public TurinMachine(){
         super();
     }
-    private int currentpos = 0;
+
     boolean EvaluateTurinMachine(String cadena){
-           TransitionTurin transitionTurin = (TransitionTurin)this.Transitions;
             State CurrentState = this.Initial;
-            String CurrentString = " ";
-            int cadenalenght = cadena.length()-1;
-               for(int i = currentpos; StringDontFinish(cadena)== false; i++)
+             String CurrentString = "B"+cadena+"B";
+
+             int currentpos = 1;
+        System.out.println(CurrentString.length());
+        while(CurrentString.length()-1>=currentpos)
         {
-          TransitionTurin  trans= searchturindestination(CurrentState,cadena.charAt(currentpos));
-         if(trans == null)
-             System.out.println("Aceptado o no");
-            char[] cadenaArray = cadena.toCharArray();
+
+            TransitionTurin  trans= (TransitionTurin) this. ShearchTransitionWithSymbol(CurrentState.nombre,CurrentString.charAt(currentpos));
+            if(trans == null)
+              return false;
+            char[] cadenaArray = CurrentString.toCharArray();
             cadenaArray[currentpos] =trans.Brand ;
-            cadena = String.valueOf(cadenaArray);
-        if(trans.Move == 'L')
-          currentpos = currentpos-2;
-
-
-
-
-    }
-
-    private TransitionTurin searchturindestination(State Current, char c) {
-
-        Transition CurrentTransition = ShearchTransitionWithSymbol(Current.nombre,c);
-        if(CurrentTransition!= null) {
-            TransitionTurin transitionTurin = (TransitionTurin)CurrentTransition;
-            return transitionTurin;
-
-        }
-        return null;
-
-
+            CurrentState =trans.Destination;
+            CurrentString = String.valueOf(cadenaArray);
+            currentpos =  trans.Move=='L'?currentpos-1:currentpos+1;
 
 
     }
-
-    private boolean StringDontFinish(String cadena) {
-
-
+        if(CurrentState.isAccept(this,CurrentState))
         return true;
+        else
+            return false;
     }
+
+
 
 
 }

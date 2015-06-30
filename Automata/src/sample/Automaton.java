@@ -38,7 +38,7 @@ public class Automaton {
     public Automaton(){
         Initial = new State();
         StateFinals = new ArrayList();
-        AllState = new ArrayList<>();
+        AllState = new ArrayList<State>();
         Transitions = new ArrayList<Transition>();
         Alfabet= new ArrayList<>();
 
@@ -57,6 +57,9 @@ public class Automaton {
     }
 
 
+    public void setTransition(Transition transition){
+        Transitions.add(transition);
+    }
     public void setTransitions(List<Transition> transitions) {
         Transitions = transitions;
     }
@@ -103,9 +106,9 @@ public class Automaton {
         return null;
     }
 
-    public Transition ShearchTransitionWithSymbol(String state, char symbol){
+    public Transition ShearchTransitionWithSymbol(String state, Character symbol){
       for(Transition trans : Transitions) {
-      if(trans.Origin.equals(state) && trans.Symbol.equals(symbol));
+      if(trans.Origin.nombre.equals(state) && trans.Symbol.equals(symbol.charValue()))
           return trans;
       }
         return null;
