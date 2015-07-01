@@ -79,25 +79,39 @@ public class Principal extends JFrame {
                 JComboBox cb = (JComboBox) e.getSource();
                 String AutomatonName = (String) cb.getSelectedItem();
                 switch (AutomatonName) {
-                 //   "DFA", "NFA", "NFAE", "Minimizacion", "Maquina de Turin","Automata de pila ", "Parser"
-                    case "DFA":  Automata = new DFA();
+                    //   "DFA", "NFA", "NFAE", "Minimizacion", "Maquina de Turin","Automata de pila ", "Parser"
+                    case "DFA":
+                        Automata = new DFA();
+                        JOptionPane.showMessageDialog(null, "DFA" + texto.getText() + "");
                         break;
-                    case "NFA":  Automata = new NFA();
+                    case "NFA":
+                        Automata = new NFA();
+                        JOptionPane.showMessageDialog(null, "NFA" + texto.getText() + "");
                         break;
                     case "NFAE":
+                        JOptionPane.showMessageDialog(null, "NFAE" + texto.getText() + "");
                         break;
-                    case "Minimizacion":  Automata = new DFAMinimizator();
+                    case "Minimizacion":
+                        Automata = new DFAMinimizator();
+                        JOptionPane.showMessageDialog(null, "Minimizacion" + texto.getText() + "");
                         break;
-                    case "Maquina de Turin":  Automata = new TurinMachine();
+                    case "Maquina de Turin":
+                        Automata = new TurinMachine();
+                        JOptionPane.showMessageDialog(null, "Maquina de Turin" + texto.getText() + "");
                         break;
-                    case "Automata de pila":  Automata = new PDA();
+                    case "Automata de pila":
+                        Automata = new PDA();
+                        JOptionPane.showMessageDialog(null, "Automata de pila" + texto.getText() + "");
                         break;
-                    case "Parser":;
+                    case "Parser":
+                        ;
+                        JOptionPane.showMessageDialog(null, "Parser" + texto.getText() + "");
                         break;
-                    default: Automata = null;
+                    default:
+                        Automata = null;
                         break;
                 }
-             }
+            }
         }) ;
 
 
@@ -106,15 +120,12 @@ public class Principal extends JFrame {
         bottomAdd = new JButton("Add");
         getContentPane().add(bottomAdd);
         bottomAdd.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
-
                 AddState add = new AddState(texto.getText());
-
                 Automata.AllState.add(new State(texto.getText()));
                 Automata.AllState.get(0);
                 texto.setText("");
-
+                JOptionPane.showMessageDialog(null, "State" + texto.getText() + "Agregado");
             }
         });
         bottomEdge = new JButton("Edge");
@@ -128,8 +139,6 @@ public class Principal extends JFrame {
                 State DestinetionState = null;
                 Object parent = getGraph().getDefaultParent();
                 Object v1 = getM().get(HomeName = JOptionPane.showInputDialog("State Home :"));
-
-
                 Object v2 = getM().get(DestinetionName = JOptionPane.showInputDialog("State destination :"));
                 for (State anObject : Automata.AllState) {
 
@@ -168,13 +177,13 @@ public class Principal extends JFrame {
                 Object v1 = getM().get(InitiaState = JOptionPane.showInputDialog("Select Initial State :"));
                 State a = null;
                 for (State anObject : Automata.AllState) {
-
                     if (anObject.nombre.equals(InitiaState)) {
 
                         Automata.setInitial(anObject);
                         System.out.println("Estado inicial agregado" + Automata.Initial.nombre);
                         return;
                     }
+
 
                     //do someting to anObject...
                 }
@@ -189,12 +198,13 @@ public class Principal extends JFrame {
                 //  System.out.println(states.get(0));
                 String FinalState;
                 Object v1 = getM().get(FinalState = JOptionPane.showInputDialog("Select Initial State :"));
+                Automata.StateFinals.add(new State(FinalState));
                 State a = null;
-                for (State anObject : Automata.AllState) {
+                for (State anObject : Automata.StateFinals) {
 
                     if (anObject.nombre.equals(FinalState)) {
 
-                       // AutomataDFA.setFinal(anObject);
+
 
                         return;
                     }
@@ -206,34 +216,20 @@ public class Principal extends JFrame {
 
             }
         });
-        bottomVerify = new JButton("VerifyDFA");
+        bottomVerify = new JButton("VerifyAutomaton");
         getContentPane().add(bottomVerify);
         bottomVerify.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
 
+                 boolean funciona = Automata.evaluateAutomaton(texto.getText());
 
-                // AutomataDFA = new DFA(Automata.Transitions, texto.getText());
+                if(funciona)
+                    JOptionPane.showMessageDialog(null, "Automata Aceptado");
+                else
+                    JOptionPane.showMessageDialog(null, "Automata no fue Aceptado");
 
-                State current = Automata.getInitial();
-                for (int i = 0; i <= texto.getText().length(); i++) {
-                   State Destiny = Automata.SearchDestiny( current,texto.getText().charAt(i));
-                    if (Destiny != null) {
-                        current = Destiny;
-                                 current.isAccept(Automata,current);
-                    } else if ( current.isAccept(Automata, current)) {
-                        System.out.println("Automata Aceptado");
-                        return;
-                    }
-                    else if ( current.isAccept(Automata,current)== false) {
-                        System.out.println("No se ha Aceptatdo");
-                        return;
-                    }
-                }
-                //  System.out.println(states.get(0));
-                System.out.println(Automata.AllState.get(0).nombre);
 
-                texto.setText("");
             }
         });
 
@@ -248,8 +244,6 @@ public class Principal extends JFrame {
 
             }
         });
-
-
 
 
         graphComponent.getGraphControl().addMouseListener(new MouseAdapter() {
