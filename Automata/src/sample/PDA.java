@@ -19,25 +19,29 @@ public class PDA extends Automaton {
     stack = new Stack<>();
 
 }
-//fsdgdsgsdg
-public boolean VerificationPDA( String cadena){
-    stack.push('z');
-    //1100
-    //4110000
-    State currentState = this.Initial;
-    String currentCadena = cadena+'E';
-    for(int i = 0; i<currentCadena.length(); i++ ){
-       Transition currentTransition = this.ShearchTransitionWithSymbolAndPushPop(currentState.nombre, currentCadena.charAt(i),stack.peek());
-         if( currentTransition ==null)
-             return false;
-        currentState = currentTransition.Destination;
 
+    @Override
+    public boolean evaluateAutomaton(String cadena) {
+        stack.push('z');
+        //1100
+        //4110000
+        State currentState = this.Initial;
+        String currentCadena = cadena+'E';
+        for(int i = 0; i<currentCadena.length(); i++ ){
+            Transition currentTransition = this.ShearchTransitionWithSymbolAndPushPop(currentState.nombre, currentCadena.charAt(i),stack.peek());
+            if( currentTransition ==null)
+                return false;
+            currentState = currentTransition.Destination;
+
+        }
+        if(currentState.isAccept(this,currentState))
+            return true;
+
+        return false;
     }
-    if(currentState.isAccept(this,currentState))
-    return true;
 
-    return false;
-}
+
+
 
 
 

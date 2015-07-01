@@ -29,7 +29,12 @@ public class NFA extends Automaton {
             onChar[i] = new ArrayList() ;
     }
 
-   // public boolean matches(String s) {
+    @Override
+    public boolean evaluateAutomaton(String cadena) {
+        return false;
+    }
+
+    // public boolean matches(String s) {
        // return matches(s,new ArrayList()) ;
     //}
 }

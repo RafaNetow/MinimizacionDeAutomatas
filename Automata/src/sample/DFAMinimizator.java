@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Created by Rafael on 6/16/2015.
  */
-public class DFAMinimizator  {
+public class DFAMinimizator extends  Automaton  {
 
     public static DFA minimize(DFA dfa) {
         Map<State, Set<State>> stateSetMapping = new HashMap<State, Set<State>>();
@@ -189,4 +189,8 @@ public class DFAMinimizator  {
         return minimizedAutomaton;
     }
 
+    @Override
+    public boolean evaluateAutomaton(String cadena) {
+        return false;
+    }
 }

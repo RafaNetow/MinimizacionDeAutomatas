@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * Created by Rafael on 02/05/2015.
  */
-public class Automaton {
+public  abstract class Automaton  {
 
 
 
@@ -113,5 +113,18 @@ public class Automaton {
       }
         return null;
     }
+
+    public State SearchDestiny( State OriginState,char Symbol) {
+        for (Transition s : Transitions) {
+            if (s.Symbol.equals(Symbol) && s.Origin.equals(OriginState)) {
+                State Destiny = ShearchSate(s.Destination.nombre);
+                return Destiny;
+            }
+
+
+        }
+        return null;
+    }
+    public abstract boolean evaluateAutomaton(String cadena);
 
 }

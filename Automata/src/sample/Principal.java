@@ -40,10 +40,12 @@ public class Principal extends JFrame {
     private JButton bottomF;
     private JButton bottomI;
     private Object cell;
-    List<State> States = new ArrayList<State>();
-    List<Transition> Transitions = new ArrayList<Transition>();
+    String[]    AutomatonStrings = { "DFA", "NFA", "NFAE", "Minimizacion", "Maquina de Turin","Automata de pila ", "Parser" };
+    JComboBox AutomatontList = new JComboBox(AutomatonStrings);
 
-    DFA AutomataDFA = new DFA();
+
+
+   Automaton Automata;
     public static HashMap getM() {
         return m;
     }
@@ -58,9 +60,9 @@ public class Principal extends JFrame {
     }
 
     private void initGUI() {
-        setSize(700, 500);
+         setSize(700, 500);
         setLocationRelativeTo(null);
-
+        getContentPane().add(AutomatontList);
         graphComponent = new mxGraphComponent(graph);
         graphComponent.setPreferredSize(new Dimension(670, 380));
         getContentPane().add(graphComponent);
@@ -70,15 +72,47 @@ public class Principal extends JFrame {
         texto.setPreferredSize(new Dimension(420, 21));
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
+
+
+        AutomatontList.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JComboBox cb = (JComboBox) e.getSource();
+                String AutomatonName = (String) cb.getSelectedItem();
+                switch (AutomatonName) {
+                 //   "DFA", "NFA", "NFAE", "Minimizacion", "Maquina de Turin","Automata de pila ", "Parser"
+                    case "DFA":  Automata = new DFA();
+                        break;
+                    case "NFA":  Automata = new NFA();
+                        break;
+                    case "NFAE":
+                        break;
+                    case "Minimizacion":  Automata = new DFAMinimizator();
+                        break;
+                    case "Maquina de Turin":  Automata = new TurinMachine();
+                        break;
+                    case "Automata de pila":  Automata = new PDA();
+                        break;
+                    case "Parser":;
+                        break;
+                    default: Automata = null;
+                        break;
+                }
+             }
+        }) ;
+
+
+
+
         bottomAdd = new JButton("Add");
         getContentPane().add(bottomAdd);
         bottomAdd.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
+
                 AddState add = new AddState(texto.getText());
 
-                States.add(new State(texto.getText()));
-                States.get(0);
+                Automata.AllState.add(new State(texto.getText()));
+                Automata.AllState.get(0);
                 texto.setText("");
 
             }
@@ -97,7 +131,7 @@ public class Principal extends JFrame {
 
 
                 Object v2 = getM().get(DestinetionName = JOptionPane.showInputDialog("State destination :"));
-                for (State anObject : States) {
+                for (State anObject : Automata.AllState) {
 
                     if (anObject.nombre.equals(HomeName))
                         HomeState = anObject;
@@ -112,8 +146,8 @@ public class Principal extends JFrame {
                 }
                 System.out.println(HomeState.nombre);
                 Character name = JOptionPane.showInputDialog("Edge:").charAt(0);
-                Transitions.add(new Transition(HomeState, DestinetionState, name));
-                AutomataDFA.setTransitions(Transitions);
+                Automata.Transitions.add(new Transition(HomeState, DestinetionState, name));
+               //Automata.setTransitions(Transitions);
 
 
 //populate set
@@ -133,12 +167,12 @@ public class Principal extends JFrame {
 
                 Object v1 = getM().get(InitiaState = JOptionPane.showInputDialog("Select Initial State :"));
                 State a = null;
-                for (State anObject : States) {
+                for (State anObject : Automata.AllState) {
 
                     if (anObject.nombre.equals(InitiaState)) {
 
-                        AutomataDFA.setInitial(anObject);
-                        System.out.println("Estado inicial agregado" + AutomataDFA.Initial.nombre);
+                        Automata.setInitial(anObject);
+                        System.out.println("Estado inicial agregado" + Automata.Initial.nombre);
                         return;
                     }
 
@@ -156,7 +190,7 @@ public class Principal extends JFrame {
                 String FinalState;
                 Object v1 = getM().get(FinalState = JOptionPane.showInputDialog("Select Initial State :"));
                 State a = null;
-                for (State anObject : States) {
+                for (State anObject : Automata.AllState) {
 
                     if (anObject.nombre.equals(FinalState)) {
 
@@ -181,23 +215,23 @@ public class Principal extends JFrame {
 
                 // AutomataDFA = new DFA(Automata.Transitions, texto.getText());
 
-                State current = AutomataDFA.getInitial();
+                State current = Automata.getInitial();
                 for (int i = 0; i <= texto.getText().length(); i++) {
-                   State Destiny = AutomataDFA.SearchDestiny( current,texto.getText().charAt(i));
+                   State Destiny = Automata.SearchDestiny( current,texto.getText().charAt(i));
                     if (Destiny != null) {
                         current = Destiny;
-                                 current.isAccept(AutomataDFA,current);
-                    } else if ( current.isAccept(AutomataDFA, current)) {
+                                 current.isAccept(Automata,current);
+                    } else if ( current.isAccept(Automata, current)) {
                         System.out.println("Automata Aceptado");
                         return;
                     }
-                    else if ( current.isAccept(AutomataDFA,current)== false) {
+                    else if ( current.isAccept(Automata,current)== false) {
                         System.out.println("No se ha Aceptatdo");
                         return;
                     }
                 }
                 //  System.out.println(states.get(0));
-                System.out.println(States.get(0).nombre);
+                System.out.println(Automata.AllState.get(0).nombre);
 
                 texto.setText("");
             }

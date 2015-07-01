@@ -13,7 +13,22 @@ public class DFA extends Automaton {
         super();
     }
 
+    @Override
+    public boolean evaluateAutomaton(String cadena) {
+        State currentState = this.Initial;
 
+        for(int i = 0; i<cadena.length(); i++){
+            Transition CurrentTrans = ShearchTransitionWithSymbol(currentState.nombre, cadena.charAt(i));
+            if(CurrentTrans== null)
+                return false;
+
+            currentState = CurrentTrans.Destination;
+
+        }
+        if(currentState.isAccept(this,currentState))
+            return true;
+        return false;
+    }
 
 
     public void addState(State newState){
@@ -25,22 +40,20 @@ public class DFA extends Automaton {
 
 
 
+        public State SearchDestiny( State OriginState,char Symbol) {
+            for (Transition s : Transitions) {
+                if (s.Symbol.equals(Symbol) && s.Origin.equals(OriginState)) {
+                    State Destiny = ShearchSate(s.Destination.nombre);
+                    return Destiny;
+                }
 
 
-
-
-
-    public State SearchDestiny( State OriginState,char Symbol) {
-        for (Transition s : Transitions) {
-            if (s.Symbol.equals(Symbol) && s.Origin.equals(OriginState)) {
-                State Destiny = ShearchSate(s.Destination.nombre);
-                return Destiny;
-            }                         
-
-
+            }
+            return null;
         }
-        return null;
-    }
+
+
+
 
 
     public boolean IfStateIsAccept(State state){

@@ -28,7 +28,7 @@ public class TestingAutomaton {
         PDA1.setTransition(Transition5);
         PDA1.StateFinals.add(c);
         PDA1.Initial = a;
-         boolean IsAcept =PDA1.VerificationPDA("11");
+         boolean IsAcept =PDA1.evaluateAutomaton("11");
         if(IsAcept)
             System.out.println("Este PDA Es aceptado");
         else
@@ -88,7 +88,7 @@ public class TestingAutomaton {
      TurinMachin1.setTransition(TransitionTurinq44);
      TurinMachin1.Initial =q0;
      TurinMachin1.StateFinals.add(q3);
-     boolean funciona = TurinMachin1.EvaluateTurinMachine("000001111");
+     boolean funciona = TurinMachin1.evaluateAutomaton("000001111");
 
      if(funciona)
       System.out.println("Maquina de turin Aceptada");
