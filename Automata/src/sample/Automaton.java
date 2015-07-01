@@ -98,6 +98,20 @@ public  abstract class Automaton  {
 
          return false;
      }
+    public ArrayList<Transition> getNextTransitions(State start){
+
+        ArrayList<Transition>nextTransitions =new ArrayList<>();
+
+        if(start!=null) {
+            for (Transition t : Transitions) {
+                if (t.Origin.nombre.equals(start.nombre)) {
+                    nextTransitions.add(t);
+                }
+            }
+        }
+        return  nextTransitions;
+    }
+
     public State ShearchSate(String name){
         for (Transition s : Transitions) {
             if(s.Origin.equals(name))
@@ -126,5 +140,6 @@ public  abstract class Automaton  {
         return null;
     }
     public abstract boolean evaluateAutomaton(String cadena);
+
 
 }

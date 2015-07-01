@@ -156,7 +156,7 @@ public class Principal extends JFrame {
                 System.out.println(HomeState.nombre);
                 Character name = JOptionPane.showInputDialog("Edge:").charAt(0);
                 Automata.Transitions.add(new Transition(HomeState, DestinetionState, name));
-               //Automata.setTransitions(Transitions);
+                //Automata.setTransitions(Transitions);
 
 
 //populate set
@@ -205,7 +205,6 @@ public class Principal extends JFrame {
                     if (anObject.nombre.equals(FinalState)) {
 
 
-
                         return;
                     }
 
@@ -220,39 +219,61 @@ public class Principal extends JFrame {
         getContentPane().add(bottomVerify);
         bottomVerify.addActionListener(new ActionListener() {
 
-            public void actionPerformed(ActionEvent e) {
+                                           public void actionPerformed(ActionEvent e) {
+                                               boolean funciona;
+                                               if (Automata instanceof NFA) {
+                                                   funciona = ((NFA) Automata).evaluateAutomaton(texto.getText(),Automata.Initial);
+                                               } else {
+                                                    funciona = Automata.evaluateAutomaton(texto.getText());
+                                               }
 
-                 boolean funciona = Automata.evaluateAutomaton(texto.getText());
-
-                if(funciona)
-                    JOptionPane.showMessageDialog(null, "Automata Aceptado");
-                else
-                    JOptionPane.showMessageDialog(null, "Automata no fue Aceptado");
-
-
-            }
-        });
-
-
-        bottomDel = new JButton("Delete");
-        getContentPane().add(bottomDel);
-        bottomDel.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                graph.getModel().remove(cell);
-
-            }
-        });
+                                               if (funciona)
+                                                   JOptionPane.showMessageDialog(null, "Automata Aceptado");
+                                               else
+                                                   JOptionPane.showMessageDialog(null, "Automata no fue Aceptado");
 
 
-        graphComponent.getGraphControl().addMouseListener(new MouseAdapter() {
+                                           }
+                                       }
 
-            public void mouseReleased(MouseEvent e) {
-                cell = graphComponent.getCellAt(e.getX(), e.getY());
+        );
 
-            }
-        });
+
+            bottomDel=new
+
+            JButton("Delete");
+
+            getContentPane()
+
+            .
+
+            add(bottomDel);
+
+            bottomDel.addActionListener(new
+
+                                                ActionListener() {
+
+                                                    @Override
+                                                    public void actionPerformed(ActionEvent arg0) {
+                                                        graph.getModel().remove(cell);
+
+                                                    }
+                                                }
+
+            );
+
+
+            graphComponent.getGraphControl().
+
+            addMouseListener(new MouseAdapter() {
+
+                                 public void mouseReleased(MouseEvent e) {
+                                     cell = graphComponent.getCellAt(e.getX(), e.getY());
+
+                                 }
+                             }
+
+            );
+        }
+
     }
-
-}

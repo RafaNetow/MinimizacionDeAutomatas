@@ -88,7 +88,7 @@ public class TestingAutomaton {
      TurinMachin1.setTransition(TransitionTurinq44);
      TurinMachin1.Initial =q0;
      TurinMachin1.StateFinals.add(q3);
-     boolean funciona = TurinMachin1.evaluateAutomaton("000001111");
+     boolean funciona = TurinMachin1.evaluateAutomaton("00000b1111");
 
      if(funciona)
       System.out.println("Maquina de turin Aceptada");
