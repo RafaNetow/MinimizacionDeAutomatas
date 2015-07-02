@@ -13,19 +13,15 @@ import java.awt.event.MouseEvent;
         import java.awt.event.ActionEvent;
         import java.awt.event.ActionListener;
         import java.awt.event.MouseAdapter;
-import java.io.Console;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
-import javax.naming.InitialContext;
+import java.util.HashMap;
+
+
 import javax.swing.*;
 
 import com.mxgraph.swing.mxGraphComponent;
         import com.mxgraph.view.mxGraph;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-import com.sun.scenario.effect.impl.state.AccessHelper;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+
 
 
 public class Principal extends JFrame {
@@ -40,6 +36,7 @@ public class Principal extends JFrame {
     private JButton bottomF;
     private JButton bottomI;
     private Object cell;
+    private Principal pfordraw = this;
     String[]    AutomatonStrings = { "DFA", "NFA", "NFAE", "Minimizacion", "Maquina de Turin","Automata de pila ", "Parser" };
     JComboBox AutomatontList = new JComboBox(AutomatonStrings);
 
@@ -215,16 +212,16 @@ public class Principal extends JFrame {
 
             }
         });
-        bottomVerify = new JButton("VerifyAutomaton");
+               bottomVerify = new JButton("VerifyAutomaton");
         getContentPane().add(bottomVerify);
         bottomVerify.addActionListener(new ActionListener() {
 
                                            public void actionPerformed(ActionEvent e) {
                                                boolean funciona;
                                                if (Automata instanceof NFA) {
-                                                   funciona = ((NFA) Automata).evaluateAutomaton(texto.getText(),Automata.Initial);
+                                                   funciona = ((NFA) Automata).evaluateAutomaton(texto.getText(), Automata.Initial);
                                                } else {
-                                                    funciona = Automata.evaluateAutomaton(texto.getText());
+                                                   funciona = Automata.evaluateAutomaton(texto.getText());
                                                }
 
                                                if (funciona)
@@ -237,9 +234,26 @@ public class Principal extends JFrame {
                                        }
 
         );
+        JButton bottomConvertToDFA = new JButton("ConvertToDFA");
+        getContentPane().add(bottomConvertToDFA);
+        bottomConvertToDFA.addActionListener(new ActionListener() {
+
+                                           public void actionPerformed(ActionEvent e) {
+
+                                               ConvertRegularExpresionToNFAE convertido = new ConvertRegularExpresionToNFAE();
+                                               DrawAutomaton dibujador =  new DrawAutomaton(pfordraw);
+                                               Automata=convertido.Convertir(texto.getText());
+                                               dibujador.DrawinAutomaton(Automata);
 
 
-            bottomDel=new
+                                           }
+                                       }
+
+        );
+
+
+
+        bottomDel=new
 
             JButton("Delete");
 

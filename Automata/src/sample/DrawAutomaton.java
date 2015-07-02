@@ -8,6 +8,11 @@ import java.util.List;
  */
 public class DrawAutomaton extends  Principal   {
 
+   Principal Princi;
+     public DrawAutomaton (Principal p){
+
+         Princi = p;
+     }
 
 
 
@@ -20,16 +25,20 @@ public class DrawAutomaton extends  Principal   {
 
     private void DrawEdge(Automaton currentAutomaton) {
         for(Transition t: currentAutomaton.Transitions){
-            Object v1 = t.Origin;
-            Object v2 = t.Destination;
 
-            AddLine Line = new AddLine(v1, v2, t.Symbol);
+
+            Object v1 = getM().get(t.Origin.nombre);
+            Object v2 = getM().get(t.Destination.nombre);
+
+
+
+            AddLine Line = new AddLine(v1, v2, t.Symbol.charValue());
         }
 
 
     }
 
-    public void DrawState(Automaton CurrentAutomaton) {
+    private void DrawState(Automaton CurrentAutomaton) {
 
 
           for(State a : CurrentAutomaton.AllState) {
